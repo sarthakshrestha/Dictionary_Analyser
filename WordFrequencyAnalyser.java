@@ -19,6 +19,8 @@ import java.util.Scanner;
  * @author mdixon
  */
 public class WordFrequencyAnalyser extends BaseAnalyser  {
+	private static final int Value = 0;
+	private static final int Values = 0;
 
 	/**
 	 * The collection containing each found word, mapped to the occurrence count.
@@ -40,21 +42,28 @@ public class WordFrequencyAnalyser extends BaseAnalyser  {
 		
 
 		String nextWord = readNextWord();
+		nextWord = nextWord.trim();
 		
-		int count = wordCounts.containsKey(nextWord) ? wordCounts.get(nextWord) : 0;
+		//int count = wordCounts.containsKey(nextWord) ? wordCounts.get(nextWord) : 0;
+		int count;
 		//wordCounts.put(nextWord, count + 1);
 		
 		// process all available words
 		while (nextWord != null) {
-			if (wordCounts.containsKey(nextWord))
+			if (wordCounts.containsKey(nextWord)) {
 			//wordCounts.put(nextWord, 1);
-			 wordCounts.put(nextWord, 1 );
+			 //wordCounts.put(nextWord, 1 );
+			 count = wordCounts.get(nextWord);
+			 count++;
+			 wordCounts.replace(nextWord, count);
+			}
 			else {
-			 wordCounts.put(nextWord, count + 1);
+			 wordCounts.put(nextWord, 1);
 			}
 			
 			// TODO:Part3 check if word known, if so increment the occurrence count, otherwise add with a count of 1
-			nextWord = null;// TODO:Part3 read next word
+			//nextWord = null;// TODO:Part3 read next word
+			nextWord = readNextWord();
 		}
 	}
 	
@@ -79,24 +88,24 @@ public class WordFrequencyAnalyser extends BaseAnalyser  {
 	 */
 	public String getMostPopularWord() {
 		
-	
 		String word = "";
 		int max = 0;
 		
 		// iterate over each entry within the map
 		for (Entry<String, Integer> entry : wordCounts.entrySet()) {
-			String key = entry.getKey();
-			Integer count = entry.getValue();
-			if(count > max) {
-				max = count;
-				word = key;
+			//String key = entry.getKey();
+			//Integer count = entry.getValue();
+			if(entry.getValue() > max) {
+				word = entry.getKey();
+				max = entry.getValue();
 			}
 			
-			else if(count == max) {
-				if(key.length() < word.length()) {
-					word = key;
+			else if(entry.getValue() == max) {
+				if(entry.getKey().length() < word.length()) {
+					word = entry.getKey();
 				}
 			}
+ 
 			// TODO:Part3 if entry value (count) is higher than max, then record the key (word) as most popular word so far
 		}
 		

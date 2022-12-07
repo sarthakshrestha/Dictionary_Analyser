@@ -220,12 +220,12 @@ public class WordFrequencyAnalyser extends BaseAnalyser  {
 		int count = 0;
 		// TODO:Part3 lookup the word within the word count map, and return its value (count) if it exists
 		for(int i = 0; i < 5; ++i) {
-		if(wordCounts.containsKey(word)){
-			++count;
-		}
-		else {
-			
-		}
+			if(wordCounts.containsKey(word)){
+				count = wordCounts.get(word);
+			}
+			else {
+
+			}
 		}
 		return count;
 	}

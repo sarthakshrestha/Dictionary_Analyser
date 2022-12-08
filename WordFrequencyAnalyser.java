@@ -19,15 +19,15 @@ import java.util.Scanner;
  * @author mdixon
  */
 public class WordFrequencyAnalyser extends BaseAnalyser  {
-	private static final int Value = 0;
-	private static final int Values = 0;
+	//private static final int Value = 0;
+	//private static final int Values = 0;
 
 	/**
 	 * The collection containing each found word, mapped to the occurrence count.
 	 * 
 	 * This is a linked hash map so the order in which the words are added is maintained.
 	 */
-	private Map<String, Integer> wordCounts = new HashMap<String, Integer>();	// TODO:Part3 create the appropriate collection instance
+	private HashMap<String, Integer> wordCounts = new HashMap<String, Integer>();	// TODO:Part3 create the appropriate collection instance
 
 	//////////////////////////////////////////////////////////////////
 
@@ -39,31 +39,28 @@ public class WordFrequencyAnalyser extends BaseAnalyser  {
 		//Integer count = wordCounts.get(filename);
 		selectInputFile(filename);	// select the file to be analysed
 		//Integer count = wordCounts.get(filename);
-		
-
 		String nextWord = readNextWord();
 		nextWord = nextWord.trim();
 		
 		//int count = wordCounts.containsKey(nextWord) ? wordCounts.get(nextWord) : 0;
-		int count;
+		int count = 0;
+		
 		//wordCounts.put(nextWord, count + 1);
 		
 		// process all available words
 		while (nextWord != null) {
 			if (wordCounts.containsKey(nextWord)) {
-			//wordCounts.put(nextWord, 1);
-			 //wordCounts.put(nextWord, 1 );
 			 count = wordCounts.get(nextWord);
-			 count++;
-			 wordCounts.replace(nextWord, count);
+			 wordCounts.replace(nextWord, wordCounts.get(nextWord) + 1);
+			 
 			}
 			else {
 			 wordCounts.put(nextWord, 1);
 			}
 			
 			// TODO:Part3 check if word known, if so increment the occurrence count, otherwise add with a count of 1
-			//nextWord = null;// TODO:Part3 read next word
-			nextWord = readNextWord();
+			
+			nextWord = readNextWord(); ;// TODO:Part3 read next word
 		}
 	}
 	
@@ -101,7 +98,7 @@ public class WordFrequencyAnalyser extends BaseAnalyser  {
 			}
 			
 			else if(entry.getValue() == max) {
-				if(entry.getKey().length() < word.length()) {
+				if(entry.getKey().length() > word.length()) {
 					word = entry.getKey();
 				}
 			}
@@ -120,7 +117,7 @@ public class WordFrequencyAnalyser extends BaseAnalyser  {
 	public int getMostPopularWordCount() {
 
 		int max = 0;
-		String word = "";
+		//String word = "";
 		// TODO:Part3 find the most popular word count and return
 		for(Entry<String, Integer> entry : wordCounts.entrySet()) {
 			//String key = entry.getKey();
@@ -142,23 +139,23 @@ public class WordFrequencyAnalyser extends BaseAnalyser  {
 	 *         empty string if an analysis is yet to be performed.
 	 */
 	public String getLeastPopularWord() {
-		
-		
 		// find the least popular word
 		int min = Integer.MAX_VALUE;
 		String word = "";
+		//int max = 0;
 		
 		for(Entry<String, Integer> entry : wordCounts.entrySet()) {
 			String key = entry.getKey();
 			Integer count = entry.getValue();
 			if(count < min) {
-				min = count;
+				min = entry.getValue();
 				word = key;
-			}
 			
-			else if(count == min) {
-				if(key.length() > word.length()) {
+			}
+			else if(count == min || count > min) {
+				if(entry.getKey().length() > word.length()) {
 					word = key;
+					min = count;
 				}
 			}
 		}
@@ -191,10 +188,7 @@ public class WordFrequencyAnalyser extends BaseAnalyser  {
 				}
 			}
 		}
-		 
-	
 		// TODO:Part3 find the least popular word count and return
-		
 		return (min == Integer.MAX_VALUE)? 0 : min;
 	}
 	
@@ -219,13 +213,13 @@ public class WordFrequencyAnalyser extends BaseAnalyser  {
 		
 		int count = 0;
 		// TODO:Part3 lookup the word within the word count map, and return its value (count) if it exists
-		for(int i = 0; i < 5; ++i) {
-			if(wordCounts.containsKey(word)){
-				count = wordCounts.get(word);
-			}
-			else {
-
-			}
+		for(int i = 0; i < 15; ++i) {
+		if(wordCounts.containsKey(word)){
+			count = wordCounts.get(word);
+		}
+		else {
+			
+		}
 		}
 		return count;
 	}

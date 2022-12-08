@@ -45,6 +45,8 @@ public class CharFrequencyAnalyser extends BaseAnalyser {
 		nextWord = nextWord.trim();
 		// process all available words
 		singleCharCount = 0;
+		
+		
 		while (nextWord != null) {
 			// extract each character from the next word, and add to the occurrence map
 			
@@ -54,18 +56,21 @@ public class CharFrequencyAnalyser extends BaseAnalyser {
 			
 			
 			for (int i = 0; i < nextWord.length(); i++) {			
-				nextWord = nextWord.toLowerCase();
+				//nextWord = nextWord.toLowerCase();
 				
-				//char add = nextWord.charAt(i);
-				charCounts.put(nextWord.charAt(i), 0); // Extracting character from nextWord and adding to occurence map
 				Character vc = nextWord.charAt(i);
-				if (vc == 'a' || vc == 'e' || vc == 'i' || vc == 'o'|| vc == 'u' || vc == ' ')	{
+				if (vc == 'a' || vc == 'e' || vc == 'i' || vc == 'o'|| vc == 'u')	{
 					vowelCount++;
 				}
 				
-				if(charCounts.containsKey(nextWord.charAt(i))) {
+				//char add = nextWord.charAt(i);
+				charCounts.put(nextWord.charAt(i), 0); // Extracting character from nextWord and adding to occurence map
+				
+				
+				if(charCounts.containsKey(vc)) {
 					//count = charCounts.replace(vc, ++count);
 					charCounts.put(vc, charCounts.get(vc) + 1);
+					//vowelCount++;
 				}
 				else {
 					charCounts.put(vc, 1);

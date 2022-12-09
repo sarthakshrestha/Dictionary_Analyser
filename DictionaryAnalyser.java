@@ -6,19 +6,23 @@ import java.io.IOException;
 import java.io.PrintStream;
 import java.util.HashSet;
 import java.util.Set;
-/**
+/*
  * A kind of {@link BaseAnalyser} that identifies whether words are present
  * within a specified dictionary.
  * 
  * @author mdixon
  */
 public class DictionaryAnalyser extends BaseAnalyser {
+	
+	//Creating HashSet of dictionary, unknown words, and known words.
+
 
 	/**
 	 * The set of words that represents the dictionary of known words.
 	 */
-	private Set<String> dictionary = new HashSet<String>();	// TODO:Part2 create the appropriate collection instance
 	
+		
+	private Set<String> dictionary = new HashSet<String>();	// TODO:Part2 create the appropriate collection instance
 	
 	/**
 	 * The set of unknown words found during the most recent analysis.
@@ -57,21 +61,22 @@ public class DictionaryAnalyser extends BaseAnalyser {
 		BufferedReader reader = new BufferedReader(new FileReader(filename));
 
 		String nextLine = reader.readLine();	// TODO:Part2 read the next line from the file
-		//System.out.println(nextLine);
 		while (nextLine != null) {
+			
 			// TODO:Part2 trim white space from the next line
-			nextLine = nextLine.trim();
+			nextLine = nextLine.trim(); // Trimming the white space before and after of the String nextLine 
+			
 			// TODO:Part2 change the next line to be lower case
-			nextLine = nextLine.toLowerCase();
-			if(!nextLine.isEmpty()) {
+			nextLine = nextLine.toLowerCase(); // Converting the string to lower case
+			
+			// TODO:Part2 add the next line to the dictionary (unless it is an empty line)
+			if(!nextLine.isEmpty()) { // While the string is not empty it is added to the HashSet dictionary
 				dictionary.add(nextLine.toLowerCase());
 			}
 			
 			// TODO:Part2 read the next line from the file
-			nextLine = reader.readLine();
-			System.out.println(nextLine);
-						
-			// TODO:Part2 add the next line to the dictionary (unless it is an empty line)
+			nextLine = reader.readLine(); // Using BuffereReader for reading the next line					
+			
 			
 		}
 
@@ -85,25 +90,22 @@ public class DictionaryAnalyser extends BaseAnalyser {
 		knownWords.clear();
 		unknownWords.clear();
 		
-		selectInputFile(filename);	// select the file to be analysed
+		selectInputFile(filename);	// Selecting filename to be analyzed.
 
 		String nextWord = readNextWord();
 
 		// process all available words
 		while (nextWord != null) {
-			//dictionary.add(nextWord);
 			
 			// TODO:Part2 identify whether word is within the dictionary
 			if(dictionary.contains(nextWord)) {
 				
 				// if it is then record as a known word, otherwise record as an unknown word.
-				
 				knownWords.add(nextWord.toLowerCase());
-				//dictionary.add(nextWord.toLowerCase());
+				
 			}
 			else if (!dictionary.contains(nextWord)){
 				unknownWords.add(nextWord.toLowerCase());
-				//dictionary.add(nextWord.toLowerCase());
 			}
 						
 			
@@ -129,10 +131,7 @@ public class DictionaryAnalyser extends BaseAnalyser {
 
 		// TODO:Part2 clear the dictionary contents
 		
-		dictionary.clear();
-		 //(!dictionary.isEmpty()) {
-			// dictionary.clear();
-		 //}
+		dictionary.clear(); // Clearing the hashSet with the clear() function
 	}
 	
 	/**

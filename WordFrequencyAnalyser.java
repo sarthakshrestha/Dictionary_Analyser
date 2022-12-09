@@ -7,6 +7,7 @@ import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -27,7 +28,7 @@ public class WordFrequencyAnalyser extends BaseAnalyser  {
 	 * 
 	 * This is a linked hash map so the order in which the words are added is maintained.
 	 */
-	private HashMap<String, Integer> wordCounts = new HashMap<String, Integer>();	// TODO:Part3 create the appropriate collection instance
+	private HashMap<String, Integer> wordCounts = new LinkedHashMap<String, Integer>();	// TODO:Part3 create the appropriate collection instance
 
 	//////////////////////////////////////////////////////////////////
 
@@ -43,14 +44,16 @@ public class WordFrequencyAnalyser extends BaseAnalyser  {
 		nextWord = nextWord.trim();
 		
 		//int count = wordCounts.containsKey(nextWord) ? wordCounts.get(nextWord) : 0;
-		int count = 0;
+		//int count = 0;
 		
 		//wordCounts.put(nextWord, count + 1);
 		
 		// process all available words
 		while (nextWord != null) {
 			if (wordCounts.containsKey(nextWord)) {
-			 count = wordCounts.get(nextWord);
+			 
+				
+				//count = wordCounts.get(nextWord);
 			 wordCounts.replace(nextWord, wordCounts.get(nextWord) + 1);
 			 
 			}
@@ -144,21 +147,13 @@ public class WordFrequencyAnalyser extends BaseAnalyser  {
 		String word = "";
 		//int max = 0;
 		
-		for(Entry<String, Integer> entry : wordCounts.entrySet()) {
-			String key = entry.getKey();
-			Integer count = entry.getValue();
-			if(count < min) {
+		for(Entry<String, Integer> entry: wordCounts.entrySet()) {
+			if(entry.getValue() < min) {
+				word = entry.getKey();
 				min = entry.getValue();
-				word = key;
-			
-			}
-			else if(count == min || count > min) {
-				if(entry.getKey().length() > word.length()) {
-					word = key;
-					min = count;
-				}
 			}
 		}
+		
 		// TODO:Part3 find the least popular word and return
 		return word;
 	}

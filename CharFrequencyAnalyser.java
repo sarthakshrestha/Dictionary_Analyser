@@ -5,6 +5,7 @@ import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -25,7 +26,7 @@ public class CharFrequencyAnalyser extends BaseAnalyser {
 	 * This is a linked hash map so the order in which the characters are added is
 	 * maintained.
 	 */
-	private HashMap<Character, Integer> charCounts = new HashMap<>(); // TODO:Part4 create the appropriate collection instance
+	private Map<Character, Integer> charCounts = new LinkedHashMap<>(); // TODO:Part4 create the appropriate collection instance
 
 	// TODO:Part4 add missing attributes (see UML model).
 	int vowelCount = 0;
@@ -41,14 +42,14 @@ public class CharFrequencyAnalyser extends BaseAnalyser {
 
 		selectInputFile(filename); // select the file to be analysed
 		String nextWord = readNextWord();
-		Integer count = 0;
+		//Integer count = 0;
 		nextWord = nextWord.trim();
-		// process all available words
+		vowelCount = 0;
+		
 		singleCharCount = 0;
 		
-		
 		while (nextWord != null) {
-			// extract each character from the next word, and add to the occurrence map
+			//Extract each character from the next word, and add to the occurrence map
 			
 			if(nextWord.length() == 1) {
 				singleCharCount++;
@@ -59,37 +60,21 @@ public class CharFrequencyAnalyser extends BaseAnalyser {
 				//nextWord = nextWord.toLowerCase();
 				
 				Character vc = nextWord.charAt(i);
-				if (vc == 'a' || vc == 'e' || vc == 'i' || vc == 'o'|| vc == 'u')	{
-					vowelCount++;
-				}
-				
-				//char add = nextWord.charAt(i);
-				charCounts.put(nextWord.charAt(i), 0); // Extracting character from nextWord and adding to occurence map
 				
 				
+				// Present in map or increment occurence count
 				if(charCounts.containsKey(vc)) {
-					//count = charCounts.replace(vc, ++count);
 					charCounts.put(vc, charCounts.get(vc) + 1);
-					//vowelCount++;
 				}
 				else {
 					charCounts.put(vc, 1);
 				}
 				
-					
-				char[] strArray = nextWord.toCharArray();
-				//char ch = nextWord.charAt(i); // TODO:Part4 get char at position 'i' from the next word
-				for(char c: strArray){
-				
-					if(charCounts.containsKey(c)){
-						charCounts.put(c, charCounts.get(c) + 1);
-					}
-					else{
-						charCounts.put(c, 1);
-					}
+				nextWord.toLowerCase();
+				if (nextWord.charAt(i) == 'a' || nextWord.charAt(i) == 'e' || nextWord.charAt(i) == 'i' || nextWord.charAt(i) == 'o'|| nextWord.charAt(i) == 'u')	{
+					vowelCount++;
 				}
 				
-				//vowelCount = vowelCount++;
 				// TODO:Part4 Check if present in the map, and increment occurrence count
 
 				// TODO:Part4 check if vowel, if so increment correct attribute
@@ -123,26 +108,19 @@ public class CharFrequencyAnalyser extends BaseAnalyser {
 	 *         null an analysis is yet to be performed.
 	 */
 	public Character getMostPopularChar() {
-
-		// find the most popular character
 		
-		Character maxChar = null; 
+		Character maxchar = null;
 		int max = 0;
-		
-		Set<Entry<Character, Integer>> entrySet = charCounts.entrySet();
-		
-		for(Entry<Character, Integer> entry : entrySet) {
-			if(entry.getValue() > max){
-				maxChar = entry.getKey();
+		for(Entry<Character, Integer> entry: charCounts.entrySet()) {
+			if(entry.getValue() > max) {
+				maxchar = entry.getKey(); // Word is the popuar word after running this function
 				max = entry.getValue();
 			}
-			
 		}
-			
-
+		
 		// TODO:Part4 if highest occurrence count so far, record the character.
 
-		return maxChar;
+		return maxchar;
 	}
 
 	/**
@@ -155,13 +133,10 @@ public class CharFrequencyAnalyser extends BaseAnalyser {
 	public int getMostPopularCharCount() {
 
 		// TODO:Part4 find the most popular character count
-		int max = Integer.MIN_VALUE;
-		for(Entry<Character, Integer> entry : charCounts.entrySet()) {
-			//String key = entry.getKey();
-			Integer count = entry.getValue();
-			if(count == max) {
-				max = count;
-			}
+		int max = 0;
+		for(Character g:charCounts.keySet()) {
+			if(charCounts.get(g)>max)max=charCounts.get(g);
+			
 		}
 
 		return max ;
@@ -197,23 +172,8 @@ public class CharFrequencyAnalyser extends BaseAnalyser {
 	public int getNonVowelCount() {
 
 		// TODO:Part4 calc result and return (hint: can use getResult().getTotalChars() to get total char count).
-		int result = 0;
-		char[] vowels = {'a','e','i','o','u','A','E','I','O','U'};
-		int results = getResult().getTotalChars();
-		//getResult();
-		for(int i = 0; i < 5; i++) {
-			if(!charCounts.containsKey(vowels)){
-				result++;
-			}
-			else {
-				result++;
-			}
-			
-		}
 		
-		
-		
-		return result;
+		return getResult().getTotalChars()-getVowelCount();
 	}
 
 	/**
@@ -236,7 +196,7 @@ public class CharFrequencyAnalyser extends BaseAnalyser {
 	public int getMultiCharacterWordCount() {
 
 		// TODO:Part4 calc result and return (hint: can use getResult().getWordCount() to get total word count).
-		return 0;
+		return getResult().getWordCount()-getSingleCharacterWordCount();
 	}
 
 	/**

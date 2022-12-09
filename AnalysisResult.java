@@ -1,13 +1,5 @@
 package analyser;
-import java.util.Scanner.*;
-import java.util.stream.Stream;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Arrays.*;
-import java.util.Comparator;
-import java.util.List;
-import java.io.*;
-
 /**
  * Stores result information related to the analysis of text.
  *
@@ -24,8 +16,6 @@ public class AnalysisResult {
 	String word;
 	double getAveWordLength = 0.0;
 
-	//int[] words = {Integer.parseInt(word)};
-
 	// TODO::Part1 add missing attributes (use UML model to identify these)
 
 	////////////////////////////////////////////////////////////
@@ -39,73 +29,77 @@ public class AnalysisResult {
 	 * //@param word the word to be recorded (null or empty words are ignored).
 	 */
 
-	public AnalysisResult() {
+	public AnalysisResult() { // Creating the constructor
 	}
 	public void recordWord(String word){
-		if(word != null && !word.isEmpty()) {
-			word = word.trim();
-			lastWord = word;
-			wordCount += 1;
+		
+		// TODO:Part1 ensure word is not null or empty
+		
+		if(word != null && !word.isEmpty()) { // Checking if the password is not empty so that the functions below can run
+			
+			// TODO:Part1 remove any whitespace
+			word = word.trim(); // Cuts the whitespace before and after the word
+			
+			// TODO:Part1 store the word in the last word attribute
+			lastWord = word; // Puts the passed string 'word' into the last word 'lastWord'
+			
+			// TODO:Part1 increment the word count attribute
+			wordCount += 1; // Increases the word count by 1 after every word
+			
 			ArrayList<String> wordRecords = new ArrayList<>();
-			wordRecords.add(lastWord);
-
-			for (int i = 0; i < wordRecords.size(); i++) {
+			wordRecords.add(lastWord); // Adding the lastWord to our map
+			
+			// Using for loop to find the longestWord within the map
+			for (int i = 0; i < wordRecords.size(); i++) { 
+				
+			// TODO:Part1 check if word is the longest so far, if so record in appropriate attribute	
 				if (lastWord.length() > longestWord.length()) {
-					longestWord = lastWord;
+					longestWord = lastWord; 
 				}
 			}
 
-			if (shortestWord.isEmpty()) {
+			if (shortestWord.isEmpty()) { // if there is no shortest word then the last word is the shortest word
+				
+				// TODO:Part1 check if word is the shortest so far, if so record in appropriate attribute
+				
 				shortestWord = lastWord;
 			} else {
-				if (shortestWord.length() > lastWord.length()) {
+				if (shortestWord.length() > lastWord.length()) { // if not empty then comparing the length with lastWord
+					// and then assigning the string as the shortest word
 					shortestWord = lastWord;
 				}
 
 			}
-			totalChars += lastWord.length();
+			// TODO:Part1 add length of word to the total character count attribute
+			
+			totalChars += lastWord.length(); // Used compound assignment operator
 		}
 
-		//String longestWord = Stream.of(lastWord).max(Comparator.comparingInt(String::length)).get();
-
 	}
-
-	// TODO:Part1 ensure word is not null or empty
-
-	// TODO:Part1 remove any whitespace
-
-	// TODO:Part1 store the word in the last word attribute
-
-	// TODO:Part1 increment the word count attribute
-
-	// TODO:Part1 check if word is the longest so far, if so record in appropriate attribute
-
-	// TODO:Part1 check if word is the shortest so far, if so record in appropriate attribute
-
-	// TODO:Part1 add length of word to the total character count attribute
-
 	/**
 	 * @return total number of characters recorded.
 	 */
 	public int getTotalChars() {
-
-		return totalChars; // TODO:Part1 return correct attribute
+		// TODO:Part1 return correct attribute
+		return totalChars; 
 	}
 
 	/**
 	 * @return total number of words recorded.
 	 */
 	public int getWordCount() {
-
-		return wordCount; // TODO:Part1 return correct attribute
+		
+		// TODO:Part1 return correct attribute
+		return wordCount; 
 	}
 
 	/**
 	 * @return the number of times {@link #reset()} has been called.
 	 */
 	public int getResetCount() {
-
-		return resetCount; // TODO:Part1 return correct attribute
+		
+		// TODO:Part1 return correct attribute
+		return resetCount; 
 	}
 
 	/**
@@ -117,8 +111,9 @@ public class AnalysisResult {
 	 * @return the longest recorded word
 	 */
 	public String getLongestWord() {
-
-		return longestWord; // TODO:Part1 return correct attribute
+		
+		// TODO:Part1 return correct attribute
+		return longestWord; 
 	}
 
 	/**
@@ -130,8 +125,9 @@ public class AnalysisResult {
 	 * @return the shortest recorded word
 	 */
 	public String getShortestWord() {
-
-		return shortestWord; // TODO:Part1 return correct attribute
+		
+		// TODO:Part1 return correct attribute
+		return shortestWord; 
 	}
 
 	/**
@@ -140,8 +136,9 @@ public class AnalysisResult {
 	 * @return the most recently recorded word.
 	 */
 	public String getLastWord() {
-
-		return lastWord; // TODO:Part1 return correct attribute
+		
+		// TODO:Part1 return correct attribute
+		return lastWord; 
 	}
 
 	/**
@@ -151,7 +148,10 @@ public class AnalysisResult {
 	 *         words have been recorded.
 	 */
 	public double getAveWordLength() {
-
+		
+		// Instead of using this long method of using else if comparison I've used this one line
+		// wordCount == 0 ? 0 : (double) totalChars / wordCount;
+		
 		//getAveWordLength = totalChars/wordCount;
 		/*
 		 * if(wordCount == 0){
@@ -170,15 +170,19 @@ public class AnalysisResult {
 	 * reset count as returned by {@link #getResetCount()}.
 	 */
 	public void reset() {
+		
+		// TODO:Part1 reset appropriate attributes, and increment the reset count
+		//Initializing all the values to 0 or empty
+		
 		wordCount = 0;
 		shortestWord = "";
 		longestWord = "";
 		lastWord = "";
 		getAveWordLength = 0.0;
 		totalChars = 0;
-		resetCount++;
+		resetCount++; // Increasing the reset count after every reset
 
-		// TODO:Part1 reset appropriate attributes, and increment the reset count
+		
 		return;
 	}
 

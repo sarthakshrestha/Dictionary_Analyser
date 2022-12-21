@@ -3,9 +3,11 @@ import java.util.ArrayList;
 /**
  * Stores result information related to the analysis of text.
  *
- * @author
+ * @author mdixon & Sarthak Shrestha
  */
 public class AnalysisResult {
+	
+	// Adding the missing attributes from the UML Model
 
 	int totalChars = 0;
 	int wordCount = 0;
@@ -15,8 +17,6 @@ public class AnalysisResult {
 	int resetCount;
 	String word;
 	double getAveWordLength = 0.0;
-
-	// TODO::Part1 add missing attributes (use UML model to identify these)
 
 	////////////////////////////////////////////////////////////
 
@@ -33,17 +33,17 @@ public class AnalysisResult {
 	}
 	public void recordWord(String word){
 		
-		// TODO:Part1 ensure word is not null or empty
+		// Ensuring that the word is not null or empty
 		
-		if(word != null && !word.isEmpty()) { // Checking if the password is not empty so that the functions below can run
+		if(word != null && !word.isEmpty()) { // Checking if the word is not empty so that the functions below can run
 			
-			// TODO:Part1 remove any whitespace
+			// Removing any whitespace
 			word = word.trim(); // Cuts the whitespace before and after the word
 			
-			// TODO:Part1 store the word in the last word attribute
+			// Storing the word in the last word attribute
 			lastWord = word; // Puts the passed string 'word' into the last word 'lastWord'
 			
-			// TODO:Part1 increment the word count attribute
+			// Increasing the word count attribute
 			wordCount += 1; // Increases the word count by 1 after every word
 			
 			ArrayList<String> wordRecords = new ArrayList<>();
@@ -52,7 +52,7 @@ public class AnalysisResult {
 			// Using for loop to find the longestWord within the map
 			for (int i = 0; i < wordRecords.size(); i++) { 
 				
-			// TODO:Part1 check if word is the longest so far, if so record in appropriate attribute	
+			// Checking if word is the longest so far, if so record in appropriate attribute	
 				if (lastWord.length() > longestWord.length()) {
 					longestWord = lastWord; 
 				}
@@ -60,7 +60,7 @@ public class AnalysisResult {
 
 			if (shortestWord.isEmpty()) { // if there is no shortest word then the last word is the shortest word
 				
-				// TODO:Part1 check if word is the shortest so far, if so record in appropriate attribute
+				// Checking if word is the shortest so far, if so record in appropriate attribute
 				
 				shortestWord = lastWord;
 			} else {
@@ -70,7 +70,7 @@ public class AnalysisResult {
 				}
 
 			}
-			// TODO:Part1 add length of word to the total character count attribute
+			// Adding length of word to the total character count attribute
 			
 			totalChars += lastWord.length(); // Used compound assignment operator
 		}
@@ -80,7 +80,9 @@ public class AnalysisResult {
 	 * @return total number of characters recorded.
 	 */
 	public int getTotalChars() {
-		// TODO:Part1 return correct attribute
+		
+		// Returning the total characters
+		
 		return totalChars; 
 	}
 
@@ -89,7 +91,8 @@ public class AnalysisResult {
 	 */
 	public int getWordCount() {
 		
-		// TODO:Part1 return correct attribute
+		// Returning the wordCount
+		
 		return wordCount; 
 	}
 
@@ -98,7 +101,8 @@ public class AnalysisResult {
 	 */
 	public int getResetCount() {
 		
-		// TODO:Part1 return correct attribute
+		// Returning the resetCount
+		
 		return resetCount; 
 	}
 
@@ -112,7 +116,8 @@ public class AnalysisResult {
 	 */
 	public String getLongestWord() {
 		
-		// TODO:Part1 return correct attribute
+		// Returning the longestWord
+		
 		return longestWord; 
 	}
 
@@ -126,7 +131,8 @@ public class AnalysisResult {
 	 */
 	public String getShortestWord() {
 		
-		// TODO:Part1 return correct attribute
+		// Return the string shortestWord
+		
 		return shortestWord; 
 	}
 
@@ -137,7 +143,8 @@ public class AnalysisResult {
 	 */
 	public String getLastWord() {
 		
-		// TODO:Part1 return correct attribute
+		// Returning the string lastWord
+		
 		return lastWord; 
 	}
 
@@ -151,6 +158,7 @@ public class AnalysisResult {
 		
 		// Instead of using this long method of using else if comparison I've used this one line
 		// wordCount == 0 ? 0 : (double) totalChars / wordCount;
+		// Using a conditional ternary operator for condensing the long if else statement
 		
 		//getAveWordLength = totalChars/wordCount;
 		/*
@@ -161,7 +169,8 @@ public class AnalysisResult {
 		 * }
 		 */
 
-		// TODO:Part1 calculate average and return
+		// Calculating the average and returning it
+		
 		return wordCount == 0 ? 0 : (double) totalChars / wordCount;
 	}
 
@@ -171,8 +180,8 @@ public class AnalysisResult {
 	 */
 	public void reset() {
 		
-		// TODO:Part1 reset appropriate attributes, and increment the reset count
-		//Initializing all the values to 0 or empty
+		// Reset appropriate attributes, and increment the reset count
+		//Initializing all the values to 0 or empty according to the data type
 		
 		wordCount = 0;
 		shortestWord = "";

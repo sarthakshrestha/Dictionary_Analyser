@@ -10,7 +10,7 @@ import java.util.Map.Entry;
  * A kind of {@link BaseAnalyser} that counts the number of unique individual
  * character occurrences within the text.
  * 
- * @author Basanta Khatri 
+ * @author mdixon & Sarthak Shrestha
  */
 public class CharFrequencyAnalyser extends BaseAnalyser {
 
